@@ -23,7 +23,7 @@ class LoginController extends Controller
         ]);
 
         $user = DB::table('audit_user_header_all')->where('email', $request->email)->first();
-// dd($user);
+dd($user);
         // if ($user && Hash::check($request->password, $user->password)) {
         if ($user && $user->password == $request->password) {
             session(['user' => $user]);
