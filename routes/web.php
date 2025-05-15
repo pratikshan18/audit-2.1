@@ -8,7 +8,9 @@ use App\Http\Controllers\Project;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProcessTemplateController;
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
@@ -20,7 +22,9 @@ use Inertia\Inertia;
 
 //---Login Form 
 Route::get('/login_new', [LoginController::class, 'loginForm'])->name('login.form');
-Route::post('/login_action', [LoginController::class, 'login'])->name('login.action');
+// Route::post('/login_action', [LoginController::class, 'login'])->name('login');
+Route::post('/login_action', [LoginController::class, 'login'])->middleware('web');
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
@@ -69,6 +73,10 @@ Route::post('storeAdmin', [AdminController::class, 'save_admin_data'])->name('ad
 Route::get('admin_edit/{id}', [AdminController::class, 'admin_adit'])->name('admin.edit'); 
 Route::post('admin_update/{id}', [AdminController::class, 'update_admin'])->name('admin.update'); 
 Route::delete('admin_delete/{id}', [AdminController::class, 'delete_admin_user'])->name('admin.delete');
+
+Route::get('/', function () {
+    return 'Laravel is working!';
+});
 
 require __DIR__.'/auth.php';
 

@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware([
+    EnsureFrontendRequestsAreStateful::class,
+    'web' // include session + csrf
+])->group(function () {
+    Route::post('/login_action', [LoginController::class, 'login']);
+});
+
