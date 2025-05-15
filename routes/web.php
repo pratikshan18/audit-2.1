@@ -9,14 +9,19 @@ use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+//---Login Form 
+Route::get('/login_new', [LoginController::class, 'loginForm'])->name('login.form');
+Route::post('/login_action', [LoginController::class, 'login'])->name('login.action');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -57,8 +62,13 @@ Route::post('add_template_stages', [ProcessTemplateController::class, 'add_templ
 Route::post('changeStatus_planning', [Project::class, 'changeStatus_planning'])->name('changeStatus_planning'); 
 Route::post('getTemplateMapChildProcess', [ServiceController::class, 'getTemplateMapChildProcess'])->name('getTemplateMapChildProcess'); 
 
-
-
+//---For Admin Route
+Route::get('AdminList', [AdminController::class, 'index'])->name('admin.admin_list'); 
+Route::get('AdminCreate', [AdminController::class, 'create_admin'])->name('admin.create_admin'); 
+Route::post('storeAdmin', [AdminController::class, 'save_admin_data'])->name('admin.store_admin'); 
+Route::get('admin_edit/{id}', [AdminController::class, 'admin_adit'])->name('admin.edit'); 
+Route::post('admin_update/{id}', [AdminController::class, 'update_admin'])->name('admin.update'); 
+Route::delete('admin_delete/{id}', [AdminController::class, 'delete_admin_user'])->name('admin.delete');
 
 require __DIR__.'/auth.php';
 
