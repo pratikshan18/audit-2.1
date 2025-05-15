@@ -57,8 +57,11 @@ Route::post('add_template_stages', [ProcessTemplateController::class, 'add_templ
 Route::post('changeStatus_planning', [Project::class, 'changeStatus_planning'])->name('changeStatus_planning'); 
 Route::post('getTemplateMapChildProcess', [ServiceController::class, 'getTemplateMapChildProcess'])->name('getTemplateMapChildProcess'); 
 
+Route::get('fetch_child_report_template', [Project::class, 'fetch_child_report_template'])->name('fetch_child_report_template'); 
+Route::get('getPageDataToEditor_planning', [Project::class, 'getPageDataToEditor_planning'])->name('getPageDataToEditor_planning'); 
+Route::post('saveHtmlTemplate_planning', [ServiceController::class, 'saveHtmlTemplate_planning'])->name('saveHtmlTemplate_planning'); 
 
-
+Route::get('planning_bmr_report_view/{type}/{id}', [Project::class, 'planning_bmr_report_view'])->name('planning_bmr_report_view');
 
 require __DIR__.'/auth.php';
 
